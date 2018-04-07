@@ -51,10 +51,10 @@ function safeDecrypt($encrypted, $key)
 {   
     $decoded = base64_decode($encrypted);
     if ($decoded === false) {
-        throw new Exception('Scream bloody murder, the encoding failed');
+        throw new \Exception('Scream bloody murder, the encoding failed.');
     }
     if (mb_strlen($decoded, '8bit') < (SODIUM_CRYPTO_SECRETBOX_NONCEBYTES + SODIUM_CRYPTO_SECRETBOX_MACBYTES)) {
-        throw new Exception('Scream bloody murder, the message was truncated');
+        throw new \Exception('Scream bloody murder, the message was truncated.');
     }
     $nonce = mb_substr($decoded, 0, SODIUM_CRYPTO_SECRETBOX_NONCEBYTES, '8bit');
     $ciphertext = mb_substr($decoded, SODIUM_CRYPTO_SECRETBOX_NONCEBYTES, null, '8bit');
@@ -65,7 +65,7 @@ function safeDecrypt($encrypted, $key)
         $key
     );
     if ($plain === false) {
-         throw new Exception('the message was tampered with in transit');
+         throw new \Exception('The message was tampered with in transit, assuming you gave the right key.');
     }
     sodium_memzero($ciphertext);
     sodium_memzero($key);

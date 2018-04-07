@@ -1,3 +1,3 @@
 #!/bin/bash
 
-mysql -u emojiuser -pemojipass --table emojicorp < /schema/inspect.sql
+mysql --host 127.0.0.1 -u emojiuser -pemojipass --table emojicorp < /schema/inspect.sql
