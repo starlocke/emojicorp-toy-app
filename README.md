@@ -10,6 +10,7 @@ project:
 - MySQL server;
   - Exposes port 3306 on localhost; make sure that is available,
     or edit the docker-compose.yml file as appropriate.
+- An Internet connection (to supply EmojiOne requirements)
 
 The requirements for launching this are:
 
