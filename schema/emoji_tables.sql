@@ -1,0 +1,6 @@
+CREATE TABLE `bbs` (
+  `uuid` VARBINARY(16) NOT NULL,
+  `message` TEXT NOT NULL,
+  `time` DATETIME NOT NULL,
+  PRIMARY KEY (`uuid`)
+) ENGINE=INNODB DEFAULT CHARSET=utf8mb4;

@@ -1,0 +1,3 @@
+DROP DATABASE IF EXISTS `emojicorp`;
+
+CREATE DATABASE `emojicorp` /*!40100 DEFAULT CHARACTER SET utf8mb4 */;
