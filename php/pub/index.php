@@ -106,6 +106,8 @@ $res->free();
             <a href="shortcodes.html" target="shortcodes">List of shortcodes</a>
           <br />
           <span id="readkey_render"></span> <-- key visualizer
+          <br />
+          <em>Supported Emoji Sequences: up to Emoji 11.0</em>
         </div>
         <div>
           <p>Poor Man's Emoji Pad (click to fill the key)</p>
@@ -149,6 +151,8 @@ $res->free();
             <a href="shortcodes.html" target="shortcodes">List of shortcodes</a>
           <br />
           <span id="key_render"></span> <-- key visualizer
+          <br />
+          <em>Supported Emoji Sequences: up to Emoji 11.0</em>
         </div>
         <div>
           <p>Poor Man's Emoji Pad (click to fill the key)</p>
