@@ -1,14 +1,67 @@
 <?php
 namespace ETL\lib\emojicorp;
 
+function validateKey($emos){
+    $sequences = file(__DIR__.'/sequences.txt', FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+    $len = mb_strlen($emos);
+    $seq = '';
+    for($i = 0; $i < $len; ++$i){
+        $chr = mb_substr($emos, $i, 1);
+        $ord = mb_ord($chr, "UTF-8");
+        $hex = strtoupper(dechex($ord));
+        
+        if(strlen($seq)){
+            $next = $seq . ' ' . $hex;
+        }
+        else {
+            $next = $hex;
+        }
+
+        if(in_array($next, $sequences)){
+            // good
+            $seq = $next;
+        }
+        elseif(in_array($hex, $sequences)) {
+            // also good
+            $seq = $hex;
+        }
+        else {
+            if($i < $len){
+                $i = $i + 1;
+                $chr2 = mb_substr($emos, $i, 1);
+                $ord2 = mb_ord($chr2, "UTF-8");
+                $hex2 = strtoupper(dechex($ord2));
+                $next2 = $next . ' ' . $hex2;
+                if(in_array($next2, $sequences)){
+                    // good
+                    $seq = $next2;
+                }
+                else {
+                    // bad
+                    //echo "really bad next -- {$next2}<br />";
+                    throw new \Exception("Unrecognized emoji sequence: {$next2}");
+                }
+        
+            }
+        }
+        //echo "{$hex}<br />";
+    }
+
+    return true;
+}
+
 /**
- * Pads a string so that it provides enough bytes to the Sodium encrypt function
+ * Pads/Trims a key so that it provides enough bytes to the Sodium encrypt function
  */
 function emojiKey($emos){
+    @validateKey($emos);
     $len = strlen($emos);
     $pad = '';
     for($i = $len; $i < SODIUM_CRYPTO_SECRETBOX_KEYBYTES; ++$i){
         $pad .= $i % 9;
+    }
+    if($len > SODIUM_CRYPTO_SECRETBOX_KEYBYTES){
+        return substr($emos, 0, SODIUM_CRYPTO_SECRETBOX_KEYBYTES);
     }
     return $emos . $pad;
 }
