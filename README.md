@@ -37,6 +37,24 @@ Windows Users:
   installed to have BASH available. Alternatively, it'll be up to you to step
   through the contents of the `tldr.sh` and `test.sh` files.
 
+## How-To Screenshots
+
+- You may use pretty much any emoji, including shortnames/shortcodes. The
+  visualizer will assist in letting you see any emoji, if your OS has trouble
+  doing rendering.
+
+**Writing a message**
+
+![Alt text](docs/img/write.png?raw=true "Writing a message")
+
+**Fetching a message**
+
+![Alt text](docs/img/fetch.png?raw=true "Writing a message")
+
+**Reading a message**
+
+![Alt text](docs/img/read.png?raw=true "Writing a message")
+
 ## Configuration? Security?
 
 None. You're on your own. This is a "toy" appliance, after all.
