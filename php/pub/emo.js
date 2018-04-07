@@ -25,9 +25,41 @@ $(function(){
         $('#read_heading')[0].scrollIntoView(true);
     }
 
+    function readkeyconvert(e, i){
+        if(e){
+            e.preventDefault();
+        }
+        let input = $('#readkey').val();
+        let output = emojione.shortnameToUnicode(input);
+        $('#readkey').val(output);
+        return false;
+    }
+    function keyconvert(e, i){
+        if(e){
+            e.preventDefault();
+        }
+        let input = $('#key').val();
+        let output = emojione.shortnameToUnicode(input);
+        $('#key').val(output);
+        return false;
+
+    }
+
+    function readsubmit(e){
+        readkeyconvert();
+    }
+    function writesubmit(e){
+        keyconvert();
+    }
+
     $('.pad').on('click', pad);
     $('.readpad').on('click', readpad);
     $('.read').on('click', readform)
+    $('.read_convert').on('click', readkeyconvert); 
+    $('.read_form').on('submit', readsubmit); 
+    $('.write_form').on('submit', writesubmit); 
+    $('.read_form').on('click', readsubmit); 
+    $('.write_form').on('click', writesubmit); 
     
     convert();
 });

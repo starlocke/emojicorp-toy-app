@@ -25,7 +25,7 @@ $stmt->fetch(); // flush
 $ok = false;
 try {
     $user_message = safeDecrypt($box, $key);
-    $sanitized_message = htmlspecialchars($user_message, ENT_QUOTES, 'UTF-8');
+    $sanitized_message = nl2br(htmlspecialchars($user_message, ENT_QUOTES, 'UTF-8'));
     $ok = true;
 }
 catch (\Exception $e){

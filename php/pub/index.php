@@ -64,14 +64,17 @@ $res->free();
     <div>
       <hr />
       <h1 id="read_heading">Read from BBS</h1>
-      <form method="GET" action="read.php">
+      <form method="GET" action="read.php" class="read_form">
         <div>
           <label for="uuid">UUID:</label><br />
           <input name="uuid" id="uuid" type="text" />
         </div>
         <div>
           <label for="readkey">Emoji Key:</label><br />
-          <input name="readkey" id="readkey" type="text" /><br />
+          <input name="readkey" id="readkey" type="text" />
+          <button class="read_convert">Convert Shortnames</button>
+          <a href="shortcodes.html" target="shortcodes">List of shortcodes</a>
+          <br />
           <em>- (this input is intended to be type="password", therefore, "seeing" emoji here is merely a convenience for this "toy" app)</em><br />
           <em>- (also, in a highly secured app, the form method would more likely be POST than GET; it is GET here for convenience of making things "visible")</em>
         </div>
@@ -98,14 +101,14 @@ $res->free();
           </table>
         </div>
         <div>
-          <button type="submit">Submit</button>
+          <button type="submit" class="read_form">Submit</button>
         </div>
       </form>
     </div>
     <div>
       <hr />
       <h1>Post to BBS</h1>
-      <form method="POST" action="api.php">
+      <form method="POST" action="api.php" class="write_form">
         <div>
           <label for="message">Message</label><br />
           <textarea name="message" id="message"></textarea>
@@ -113,7 +116,8 @@ $res->free();
         <div>
           <label for="key">Emoji Key:</label><br />
           <input name="key" id="key" type="text" /><br />
-          <em>(this input is intended to be type="password", therefore, "seeing" emoji here is merely a convenience for this "toy" app)</em>
+          <button class="read_convert">Convert Shortnames</button>
+          <a href="shortcodes.html" target="shortcodes">List of shortcodes</a>
         </div>
         <div>
           <p>Poor Man's Emoji Pad (click to fill the key)</p>
@@ -138,7 +142,7 @@ $res->free();
           </table>
         </div>
         <div>
-          <button type="submit">Submit</button>
+          <button type="submit" class="write_form">Submit</button>
         </div>
       </form>
       <hr />
