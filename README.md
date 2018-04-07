@@ -43,17 +43,17 @@ Windows Users:
   visualizer will assist in letting you see any emoji, if your OS has trouble
   doing rendering.
 
-**Writing a message**
+### Writing a message
 
-![Alt text](docs/img/write.png?raw=true "Writing a message")
+![Write Screenshot](docs/img/write.png?raw=true "Writing a message")
 
-**Fetching a message**
+### Fetching a message
 
-![Alt text](docs/img/fetch.png?raw=true "Writing a message")
+![Fetch Screenshot](docs/img/fetch.png?raw=true "Fetching a message")
 
-**Reading a message**
+### Reading a message
 
-![Alt text](docs/img/read.png?raw=true "Writing a message")
+![Read Screenshot](docs/img/read.png?raw=true "Reading a message")
 
 ## Configuration? Security?
 
