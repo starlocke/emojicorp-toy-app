@@ -28,7 +28,10 @@ $res->free();
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
     <script src="emo.js"></script>
     <style>
-      .posts td {
+      .posts {
+        border: 1px solid black;
+      }
+      .posts td, .posts th {
         font-family: monospace;
         border: 1px solid black;
         padding: 0.5em;
@@ -43,12 +46,39 @@ $res->free();
       .padtab {
         font-size: 32px;
       }
+      .decode {
+        background: #cfc;
+      }
+      .encode {
+        background: #ccf;
+      }
+      .padtab {
+        border: 1px solid black;
+      }
+      .padtab td {
+        border: 1px solid black;
+      }
+      #readkey_render, #key_render {
+        border: 1px solid black;
+        background: #ccc;
+        padding: 0.25em;
+        display: inline-block;
+      }
     </style>
   </head>
   <body>
     <p>Page: <?= $page ?> (pagination is NOT implemented; simply limits to the latest 512 messages)</p>
     <hr />
+    <h1>EmojiBBS</h1>
+    <p>Table of Posts:</p>
     <table class="posts">
+      <thead>
+        <tr>
+          <th>Message ID</th>
+          <th>Message Time</th>
+          <th>Action Button</th>
+        </tr>
+      </thead>
       <tbody>
 <?php foreach($posts as $post): ?>
         <tr>
@@ -61,7 +91,7 @@ $res->free();
 
       </tbody>
     </table>
-    <div>
+    <div class="decode">
       <hr />
       <h1 id="read_heading">Read from BBS</h1>
       <form method="GET" action="read.php" class="read_form">
@@ -71,12 +101,11 @@ $res->free();
         </div>
         <div>
           <label for="readkey">Emoji Key:</label><br />
-          <input name="readkey" id="readkey" type="text" />
-          <button class="read_convert">Convert Shortnames</button>
-          <a href="shortcodes.html" target="shortcodes">List of shortcodes</a>
+          <input name="readkey" id="readkey" type="text" maxlength="32" />
+            <button class="read_convert">Convert Shortnames</button>
+            <a href="shortcodes.html" target="shortcodes">List of shortcodes</a>
           <br />
-          <em>- (this input is intended to be type="password", therefore, "seeing" emoji here is merely a convenience for this "toy" app)</em><br />
-          <em>- (also, in a highly secured app, the form method would more likely be POST than GET; it is GET here for convenience of making things "visible")</em>
+          <span id="readkey_render"></span> <-- key visualizer
         </div>
         <div>
           <p>Poor Man's Emoji Pad (click to fill the key)</p>
@@ -101,11 +130,11 @@ $res->free();
           </table>
         </div>
         <div>
-          <button type="submit" class="read_form">Submit</button>
+          <button type="submit" class="read_form">Fetch Message</button>
         </div>
       </form>
     </div>
-    <div>
+    <div class="encode">
       <hr />
       <h1>Post to BBS</h1>
       <form method="POST" action="api.php" class="write_form">
@@ -115,9 +144,11 @@ $res->free();
         </div>
         <div>
           <label for="key">Emoji Key:</label><br />
-          <input name="key" id="key" type="text" /><br />
-          <button class="read_convert">Convert Shortnames</button>
-          <a href="shortcodes.html" target="shortcodes">List of shortcodes</a>
+          <input name="key" id="key" type="text" maxlength="32" />
+            <button class="read_convert">Convert Shortnames</button>
+            <a href="shortcodes.html" target="shortcodes">List of shortcodes</a>
+          <br />
+          <span id="key_render"></span> <-- key visualizer
         </div>
         <div>
           <p>Poor Man's Emoji Pad (click to fill the key)</p>
@@ -142,7 +173,7 @@ $res->free();
           </table>
         </div>
         <div>
-          <button type="submit" class="write_form">Submit</button>
+          <button type="submit" class="write_form">Post Message</button>
         </div>
       </form>
       <hr />
