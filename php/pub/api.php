@@ -28,13 +28,35 @@ if($stmt === false){
     exit;
 }
 $stmt->bind_param('ss', $uuid, $box);
-$stmt->execute();
-$stmt->fetch(); // flush
-
-echo "<pre>{$uuid} -> {$box}</pre><br />";
-
-// $user_message = safeDecrypt($box, $key);
-
-// $sanitized_message = htmlspecialchars($user_message, ENT_QUOTES, 'UTF-8');
-
-// echo "<pre>$sanitized_message</pre><br />";
+$ok = $stmt->execute();
+if($ok){
+    $stmt->fetch(); // flush
+}
+else {
+    $error = "Something went wrong. Sorry.";
+}
+?>
+<!doctype html>
+<html lang=en>
+  <head>
+    <meta charset=utf-8>
+    <title>Emojicorp</title>
+  </head>
+  <body>
+    <h1>Write-a-message</h1>
+    <hr />
+<?php if($ok): ?>
+    <p>Succesfully Recorded!</p>
+    <div style="background: #ccc; padding: 0.5em; margin: 0.5em;">
+        Message ID: <?= $uuid ?>
+    </div>
+<?php else: ?>
+    <p>Error!</p>
+    <div style="background: #fcc; padding: 0.5em; margin: 0.5em;">
+        <?= $error ?>
+    </div>
+<?php endif; ?>
+    <hr />
+    <a href="/">Return to home page</a>
+  </body>
+</html>
