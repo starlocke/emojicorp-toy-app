@@ -1,9 +1,7 @@
 $(function(){
     function convert() {
         let emos = $('.emo');
-        console.log(emos);
         for(let emo of emos){
-            console.log(emo);
             let input = $(emo).text();
             let output = emojione.toImage(input);
             $(emo).html(output);
