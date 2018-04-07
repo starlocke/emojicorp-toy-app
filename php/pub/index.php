@@ -101,6 +101,7 @@ $res->free();
         <div>
           <label for="uuid">UUID:</label><br />
           <input name="uuid" id="uuid" type="text" />
+            (it's faster by using the "Read..." buttons, above)
         </div>
         <div>
           <label for="readkey">Emoji Key:</label><br />
