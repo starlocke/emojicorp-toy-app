@@ -4,6 +4,9 @@ namespace ETL\lib\emojicorp;
 function validateKey($emos){
     $sequences = file(__DIR__.'/sequences.txt', FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
     $len = mb_strlen($emos);
+    if($len == 0){
+        throw new \Exception("Key must not be empty!");
+    }
     $seq = '';
     for($i = 0; $i < $len; ++$i){
         $chr = mb_substr($emos, $i, 1);

@@ -2,28 +2,27 @@
 namespace ETL\lib\emojicorp;
 
 require_once('../lib/lib_emoji.php');
-
-$uuid = $_GET['uuid'];
-$key = emojiKey($_GET['readkey']);
-
-$read = <<<EOT
+$ok = false;
+try {
+    $uuid = $_GET['uuid'];
+    $key = emojiKey($_GET['readkey']);
+    
+    $read = <<<EOT
 SELECT BIN_TO_UUID(`uuid`) AS `uuid`, `time`, `message` FROM bbs
 WHERE `uuid` = UUID_TO_BIN(?)
 EOT;
-
-$db = new \mysqli("db", "emojiuser", "emojipass", "emojicorp"); // host, user, pass, db-schema
-$stmt = $db->prepare($read);
-if($stmt === false){
-    var_dump( $db->error );
-    exit;
-}
-$stmt->bind_param('s', $uuid);
-$stmt->bind_result($uuid, $time, $box);
-$stmt->execute();
-$stmt->fetch(); // flush
-
-$ok = false;
-try {
+    
+    $db = new \mysqli("db", "emojiuser", "emojipass", "emojicorp"); // host, user, pass, db-schema
+    $stmt = $db->prepare($read);
+    if($stmt === false){
+        var_dump( $db->error );
+        exit;
+    }
+    $stmt->bind_param('s', $uuid);
+    $stmt->bind_result($uuid, $time, $box);
+    $stmt->execute();
+    $stmt->fetch(); // flush
+    
     $user_message = safeDecrypt($box, $key);
     $sanitized_message = nl2br(htmlspecialchars($user_message, ENT_QUOTES, 'UTF-8'));
     $ok = true;

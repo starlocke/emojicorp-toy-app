@@ -4,11 +4,12 @@ namespace ETL\lib\emojicorp;
 require_once('../lib/lib_emoji.php');
 require_once('../lib/lib_uuid.php');
 
-$key = emojiKey($_POST['key']);
-$box = safeEncrypt($_POST['message'], $key);
-$uuid = UUID::v4();
-
-$insert = <<<EOT
+try {
+    $key = emojiKey($_POST['key']);
+    $box = safeEncrypt($_POST['message'], $key);
+    $uuid = UUID::v4();
+    
+    $insert = <<<EOT
 INSERT INTO bbs (
     uuid,
     message,
@@ -20,21 +21,26 @@ VALUES (
     NOW()
 )
 EOT;
+    
+    $db = new \mysqli("db", "emojiuser", "emojipass", "emojicorp"); // host, user, pass, db-schema
+    $stmt = $db->prepare($insert);
+    if($stmt === false){
+        var_dump( $db->error );
+        exit;
+    }
+    $stmt->bind_param('ss', $uuid, $box);
+    $ok = $stmt->execute();
+    if($ok){
+        $stmt->fetch(); // flush
+    }
+    else {
+        $error = "Something went wrong. Sorry.";
+    }
+}
+catch (\Exception $e){
+    $error = $e->getMessage();
+}
 
-$db = new \mysqli("db", "emojiuser", "emojipass", "emojicorp"); // host, user, pass, db-schema
-$stmt = $db->prepare($insert);
-if($stmt === false){
-    var_dump( $db->error );
-    exit;
-}
-$stmt->bind_param('ss', $uuid, $box);
-$ok = $stmt->execute();
-if($ok){
-    $stmt->fetch(); // flush
-}
-else {
-    $error = "Something went wrong. Sorry.";
-}
 ?>
 <!doctype html>
 <html lang=en>
