@@ -11,6 +11,9 @@ EOT;
 
 $db = new \mysqli("db", "emojiuser", "emojipass", "emojicorp"); // host, user, pass, db-schema
 $res = $db->query($fetch);
+if(!$res){
+  var_dump($db->error);exit;
+}
 $posts = [];
 while($row = $res->fetch_assoc()){
   $posts[] = $row;

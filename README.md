@@ -17,6 +17,19 @@ The requirements for launching this are:
 - Docker-Compose
 - `/bin/bash` (non-issue for most macOS and Linux users)
 
+Hardware:
+
+- Anything roughly requivalent to a MacBook Pro from 2015.
+- That is to say: SSD drive, fast CPU, ample memory.
+
+**HARDWARE SPEED NOTICE**
+
+- If your hardware is slow, then, `./tldr.sh` may fail to create a database.
+- In that case, there's a line in its output that will help get the database
+  setup. It tells you to run:
+
+`docker-compose exec db /schema/reset.sh`
+
 Windows Users:
 
 - Windows users should be running Windows 10 with the "Linux Subsystem"
